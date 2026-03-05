@@ -3,15 +3,355 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>PugaXTrade</title>
-</head>
-<body style="font-family: system-ui; max-width: 900px; margin: 40px auto; padding: 0 16px;">
-  <h1>PugaXTrade</h1>
-  <p>Plataforma de análisis inteligente.</p>
+  <title>PugaXTrade | Análisis inteligente para invertir con claridad</title>
+  <meta name="description" content="PugaXTrade: plataforma de análisis inteligente para acciones y ETFs. Señales, indicadores y tableros claros para decidir con disciplina." />
+  <style>
+    :root{
+      --bg1:#070b18;
+      --bg2:#0b1b2a;
+      --card:#0f172a;
+      --card2:#111c33;
+      --text:#e6edf7;
+      --muted:#a7b3c8;
+      --stroke:rgba(255,255,255,.10);
+      --brand:#22c1c3;   /* teal */
+      --brand2:#1e3a8a;  /* navy */
+      --accent:#60a5fa;  /* blue */
+      --shadow: 0 18px 60px rgba(0,0,0,.45);
+      --radius: 18px;
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
+      color:var(--text);
+      background:
+        radial-gradient(1200px 700px at 10% 10%, rgba(34,193,195,.25), transparent 55%),
+        radial-gradient(900px 600px at 90% 30%, rgba(96,165,250,.22), transparent 50%),
+        linear-gradient(180deg, var(--bg1), var(--bg2));
+      min-height:100vh;
+    }
+    a{color:inherit}
+    .wrap{
+      max-width:1100px;
+      margin:0 auto;
+      padding: 34px 18px 50px;
+    }
+    .nav{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:14px;
+      padding: 10px 0 26px;
+    }
+    .logo{
+      display:flex;
+      align-items:center;
+      gap:10px;
+      font-weight:800;
+      letter-spacing:.2px;
+    }
+    .mark{
+      width:38px;height:38px;border-radius:12px;
+      background: linear-gradient(135deg, rgba(34,193,195,.95), rgba(30,58,138,.95));
+      box-shadow: 0 10px 28px rgba(34,193,195,.18);
+      position:relative;
+      border:1px solid rgba(255,255,255,.12);
+    }
+    .mark:before{
+      content:"";
+      position:absolute; inset:10px 11px 11px 10px;
+      border-radius:10px;
+      border:1px solid rgba(255,255,255,.18);
+      transform: skew(-8deg);
+    }
+    .badge{
+      font-size:12px;
+      color:var(--muted);
+      border:1px solid var(--stroke);
+      background: rgba(255,255,255,.04);
+      padding:6px 10px;
+      border-radius:999px;
+      backdrop-filter: blur(10px);
+    }
 
-  <a href="/pugaxtrade/"
-     style="display:inline-block;padding:12px 18px;border-radius:10px;background:#111;color:#fff;text-decoration:none;">
-    Entrar a la plataforma
-  </a>
+    .hero{
+      display:grid;
+      grid-template-columns: 1.25fr .75fr;
+      gap:18px;
+      align-items:stretch;
+    }
+    @media (max-width: 900px){
+      .hero{grid-template-columns: 1fr; }
+    }
+
+    .card{
+      background: linear-gradient(180deg, rgba(15,23,42,.92), rgba(15,23,42,.72));
+      border:1px solid var(--stroke);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: 26px;
+      overflow:hidden;
+      position:relative;
+    }
+    .card:after{
+      content:"";
+      position:absolute;
+      inset:-2px;
+      background:
+        radial-gradient(600px 240px at 0% 0%, rgba(34,193,195,.12), transparent 60%),
+        radial-gradient(600px 240px at 100% 0%, rgba(96,165,250,.10), transparent 60%);
+      pointer-events:none;
+    }
+    .card > *{ position:relative; }
+
+    h1{
+      margin: 6px 0 10px;
+      font-size: clamp(30px, 4vw, 44px);
+      line-height:1.08;
+      letter-spacing:-.6px;
+    }
+    .sub{
+      margin:0 0 18px;
+      color: var(--muted);
+      font-size: 16px;
+      line-height:1.6;
+      max-width: 62ch;
+    }
+    .high{
+      background: linear-gradient(90deg, rgba(34,193,195,.25), rgba(96,165,250,.20));
+      border:1px solid rgba(255,255,255,.10);
+      padding: 2px 8px;
+      border-radius: 999px;
+      color: #dff7ff;
+      white-space:nowrap;
+    }
+
+    .actions{
+      display:flex;
+      flex-wrap:wrap;
+      gap:12px;
+      margin-top: 18px;
+      align-items:center;
+    }
+    .btn{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      gap:10px;
+      padding: 12px 16px;
+      border-radius: 14px;
+      text-decoration:none;
+      font-weight:700;
+      border:1px solid rgba(255,255,255,.12);
+      transition: transform .08s ease, box-shadow .15s ease, background .15s ease;
+      user-select:none;
+      will-change: transform;
+    }
+    .btn:active{ transform: translateY(1px); }
+    .btn-primary{
+      background: linear-gradient(135deg, rgba(34,193,195,.98), rgba(96,165,250,.92));
+      color: #06101a;
+      box-shadow: 0 18px 40px rgba(34,193,195,.18);
+    }
+    .btn-primary:hover{ box-shadow: 0 22px 55px rgba(34,193,195,.24); }
+    .btn-ghost{
+      background: rgba(255,255,255,.05);
+      color: var(--text);
+    }
+    .btn-ghost:hover{ background: rgba(255,255,255,.08); }
+
+    .grid{
+      display:grid;
+      grid-template-columns: repeat(2, minmax(0,1fr));
+      gap:12px;
+      margin-top: 18px;
+    }
+    @media (max-width: 600px){
+      .grid{ grid-template-columns: 1fr; }
+    }
+    .feat{
+      border:1px solid var(--stroke);
+      background: rgba(255,255,255,.04);
+      border-radius: 16px;
+      padding: 14px 14px;
+      min-height: 92px;
+    }
+    .feat h3{
+      margin:0 0 6px;
+      font-size: 14px;
+      letter-spacing:.2px;
+    }
+    .feat p{
+      margin:0;
+      color: var(--muted);
+      font-size: 13px;
+      line-height:1.55;
+    }
+    .kpi{
+      display:flex; gap:10px; align-items:center;
+      margin-top: 16px;
+      flex-wrap:wrap;
+      color: var(--muted);
+      font-size: 13px;
+    }
+    .dot{
+      width:7px;height:7px;border-radius:999px;
+      background: var(--brand);
+      box-shadow: 0 0 0 4px rgba(34,193,195,.12);
+    }
+
+    .side{
+      display:flex;
+      flex-direction:column;
+      gap:14px;
+    }
+    .mini{
+      background: linear-gradient(180deg, rgba(17,28,51,.85), rgba(15,23,42,.55));
+      border:1px solid var(--stroke);
+      border-radius: var(--radius);
+      padding: 18px;
+      box-shadow: var(--shadow);
+    }
+    .mini h2{
+      margin:0 0 10px;
+      font-size: 16px;
+      letter-spacing:.2px;
+    }
+    .mini ul{
+      margin:0;
+      padding:0 0 0 16px;
+      color: var(--muted);
+      line-height:1.65;
+      font-size: 13px;
+    }
+    .foot{
+      margin-top: 22px;
+      color: rgba(167,179,200,.85);
+      font-size: 12px;
+      line-height:1.5;
+    }
+    .pill{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      margin-top: 10px;
+      padding: 8px 10px;
+      border-radius: 999px;
+      border:1px solid var(--stroke);
+      background: rgba(255,255,255,.04);
+      color: var(--muted);
+      font-size: 12px;
+    }
+    .icon{
+      width:18px;height:18px; display:inline-block;
+    }
+    .hr{
+      height:1px;
+      background: rgba(255,255,255,.10);
+      margin: 14px 0;
+      border:0;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="wrap">
+    <div class="nav">
+      <div class="logo">
+        <span class="mark" aria-hidden="true"></span>
+        <span>PugaXTrade</span>
+      </div>
+      <span class="badge">Análisis inteligente • Señales claras • Disciplina</span>
+    </div>
+
+    <section class="hero">
+      <div class="card">
+        <span class="pill">
+          <span class="dot" aria-hidden="true"></span>
+          Plataforma para análisis de acciones y ETFs con enfoque práctico
+        </span>
+
+        <h1>Invierte con claridad, no con corazonadas.</h1>
+        <p class="sub">
+          <strong>PugaXTrade</strong> es tu tablero de análisis para tomar decisiones con disciplina:
+          indicadores, señales y lecturas rápidas del mercado en un entorno visual y ordenado.
+          Diseñado para que pases de “no sé qué hacer” a <span class="high">una acción concreta</span>.
+        </p>
+
+        <div class="actions">
+          <a class="btn btn-primary" href="/pugaxtrade/">
+            Entrar a la plataforma
+            <svg class="icon" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <path d="M9 18l6-6-6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </a>
+
+          <a class="btn btn-ghost" href="#beneficios">
+            Ver beneficios
+          </a>
+        </div>
+
+        <div class="kpi">
+          <span><span class="dot"></span> Lectura rápida del mercado</span>
+          <span><span class="dot"></span> Señales e indicadores</span>
+          <span><span class="dot"></span> Flujo de decisión consistente</span>
+        </div>
+
+        <div id="beneficios" class="grid" aria-label="Beneficios de PugaXTrade">
+          <div class="feat">
+            <h3>📊 Tableros y semáforos</h3>
+            <p>Visualiza tendencias, fuerza y momentum en segundos, sin perderte en mil gráficas.</p>
+          </div>
+          <div class="feat">
+            <h3>⚙️ Indicadores listos</h3>
+            <p>RSI, medias, volatilidad y más, integrados para lectura práctica y consistente.</p>
+          </div>
+          <div class="feat">
+            <h3>🧭 Decisiones con disciplina</h3>
+            <p>Convierte datos en acciones: observar, entrar, ajustar o salir con criterio.</p>
+          </div>
+          <div class="feat">
+            <h3>🧠 Enfoque “menos ruido”</h3>
+            <p>Una interfaz limpia para enfocarte en lo importante: probabilidad y gestión de riesgo.</p>
+          </div>
+        </div>
+
+        <hr class="hr" />
+
+        <p class="foot">
+          *Aviso: PugaXTrade es una herramienta de análisis. No constituye asesoría financiera.
+          Toda inversión conlleva riesgo.
+        </p>
+      </div>
+
+      <div class="side">
+        <div class="mini">
+          <h2>¿Qué obtienes al entrar?</h2>
+          <ul>
+            <li>Vista rápida del mercado y activos clave</li>
+            <li>Señales e indicadores para contexto</li>
+            <li>Apoyo para un proceso de decisión repetible</li>
+          </ul>
+          <div class="actions" style="margin-top:14px;">
+            <a class="btn btn-primary" href="/pugaxtrade/">Acceder</a>
+          </div>
+        </div>
+
+        <div class="mini">
+          <h2>Ideal para ti si…</h2>
+          <ul>
+            <li>Quieres orden y consistencia para operar</li>
+            <li>Buscas reducir impulsos y “sobre-trading”</li>
+            <li>Necesitas una lectura clara y rápida</li>
+          </ul>
+          <div class="pill" style="margin-top:12px;">
+            <span class="dot" aria-hidden="true"></span>
+            Hecho para velocidad y claridad visual
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
 </body>
 </html>
