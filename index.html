@@ -10,13 +10,11 @@
       --bg1:#070b18;
       --bg2:#0b1b2a;
       --card:#0f172a;
-      --card2:#111c33;
       --text:#e6edf7;
       --muted:#a7b3c8;
       --stroke:rgba(255,255,255,.10);
       --brand:#22c1c3;   /* teal */
-      --brand2:#1e3a8a;  /* navy */
-      --accent:#60a5fa;  /* blue */
+      --brand2:#60a5fa;  /* blue */
       --shadow: 0 18px 60px rgba(0,0,0,.45);
       --radius: 18px;
     }
@@ -35,14 +33,16 @@
     .wrap{
       max-width:1100px;
       margin:0 auto;
-      padding: 34px 18px 50px;
+      padding: 26px 16px 44px;
     }
+
+    /* Top bar */
     .nav{
       display:flex;
       align-items:center;
       justify-content:space-between;
-      gap:14px;
-      padding: 10px 0 26px;
+      gap:12px;
+      padding: 6px 0 18px;
     }
     .logo{
       display:flex;
@@ -50,10 +50,12 @@
       gap:10px;
       font-weight:800;
       letter-spacing:.2px;
+      min-width: 0;
     }
     .mark{
+      flex: 0 0 38px;
       width:38px;height:38px;border-radius:12px;
-      background: linear-gradient(135deg, rgba(34,193,195,.95), rgba(30,58,138,.95));
+      background: linear-gradient(135deg, rgba(34,193,195,.95), rgba(96,165,250,.92));
       box-shadow: 0 10px 28px rgba(34,193,195,.18);
       position:relative;
       border:1px solid rgba(255,255,255,.12);
@@ -73,16 +75,15 @@
       padding:6px 10px;
       border-radius:999px;
       backdrop-filter: blur(10px);
+      white-space: nowrap;
     }
 
+    /* Layout */
     .hero{
       display:grid;
       grid-template-columns: 1.25fr .75fr;
-      gap:18px;
+      gap:16px;
       align-items:stretch;
-    }
-    @media (max-width: 900px){
-      .hero{grid-template-columns: 1fr; }
     }
 
     .card{
@@ -90,7 +91,7 @@
       border:1px solid var(--stroke);
       border-radius: var(--radius);
       box-shadow: var(--shadow);
-      padding: 26px;
+      padding: 22px;
       overflow:hidden;
       position:relative;
     }
@@ -106,13 +107,13 @@
     .card > *{ position:relative; }
 
     h1{
-      margin: 6px 0 10px;
-      font-size: clamp(30px, 4vw, 44px);
+      margin: 10px 0 10px;
+      font-size: clamp(28px, 4.2vw, 46px);
       line-height:1.08;
       letter-spacing:-.6px;
     }
     .sub{
-      margin:0 0 18px;
+      margin:0 0 14px;
       color: var(--muted);
       font-size: 16px;
       line-height:1.6;
@@ -127,11 +128,34 @@
       white-space:nowrap;
     }
 
+    .pill{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      margin-top: 2px;
+      padding: 8px 10px;
+      border-radius: 999px;
+      border:1px solid var(--stroke);
+      background: rgba(255,255,255,.04);
+      color: var(--muted);
+      font-size: 12px;
+      max-width: 100%;
+      overflow:hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+    .dot{
+      width:7px;height:7px;border-radius:999px;
+      background: var(--brand);
+      box-shadow: 0 0 0 4px rgba(34,193,195,.12);
+      flex: 0 0 auto;
+    }
+
     .actions{
       display:flex;
       flex-wrap:wrap;
       gap:12px;
-      margin-top: 18px;
+      margin-top: 14px;
       align-items:center;
     }
     .btn{
@@ -161,14 +185,19 @@
     }
     .btn-ghost:hover{ background: rgba(255,255,255,.08); }
 
+    .kpi{
+      display:flex; gap:10px; align-items:center;
+      margin-top: 14px;
+      flex-wrap:wrap;
+      color: var(--muted);
+      font-size: 13px;
+    }
+
     .grid{
       display:grid;
       grid-template-columns: repeat(2, minmax(0,1fr));
       gap:12px;
-      margin-top: 18px;
-    }
-    @media (max-width: 600px){
-      .grid{ grid-template-columns: 1fr; }
+      margin-top: 16px;
     }
     .feat{
       border:1px solid var(--stroke);
@@ -187,18 +216,6 @@
       color: var(--muted);
       font-size: 13px;
       line-height:1.55;
-    }
-    .kpi{
-      display:flex; gap:10px; align-items:center;
-      margin-top: 16px;
-      flex-wrap:wrap;
-      color: var(--muted);
-      font-size: 13px;
-    }
-    .dot{
-      width:7px;height:7px;border-radius:999px;
-      background: var(--brand);
-      box-shadow: 0 0 0 4px rgba(34,193,195,.12);
     }
 
     .side{
@@ -225,32 +242,33 @@
       line-height:1.65;
       font-size: 13px;
     }
-    .foot{
-      margin-top: 22px;
-      color: rgba(167,179,200,.85);
-      font-size: 12px;
-      line-height:1.5;
-    }
-    .pill{
-      display:inline-flex;
-      align-items:center;
-      gap:8px;
-      margin-top: 10px;
-      padding: 8px 10px;
-      border-radius: 999px;
-      border:1px solid var(--stroke);
-      background: rgba(255,255,255,.04);
-      color: var(--muted);
-      font-size: 12px;
-    }
-    .icon{
-      width:18px;height:18px; display:inline-block;
-    }
+
     .hr{
       height:1px;
       background: rgba(255,255,255,.10);
       margin: 14px 0;
       border:0;
+    }
+    .foot{
+      margin-top: 18px;
+      color: rgba(167,179,200,.85);
+      font-size: 12px;
+      line-height:1.5;
+    }
+    .icon{width:18px;height:18px; display:inline-block;}
+
+    /* Mobile: 1 column, buttons full width, badge hides */
+    @media (max-width: 900px){
+      .hero{ grid-template-columns: 1fr; }
+    }
+    @media (max-width: 640px){
+      .wrap{ padding: 18px 14px 34px; }
+      .badge{ display:none; }
+      .card{ padding: 18px; }
+      .actions{ gap:10px; }
+      .btn{ width:100%; }
+      .grid{ grid-template-columns: 1fr; }
+      .kpi{ font-size: 12px; }
     }
   </style>
 </head>
@@ -287,9 +305,7 @@
             </svg>
           </a>
 
-          <a class="btn btn-ghost" href="#beneficios">
-            Ver beneficios
-          </a>
+          <a class="btn btn-ghost" href="#beneficios">Ver beneficios</a>
         </div>
 
         <div class="kpi">
@@ -345,10 +361,10 @@
             <li>Buscas reducir impulsos y “sobre-trading”</li>
             <li>Necesitas una lectura clara y rápida</li>
           </ul>
-          <div class="pill" style="margin-top:12px;">
+          <span class="pill" style="margin-top:12px;">
             <span class="dot" aria-hidden="true"></span>
             Hecho para velocidad y claridad visual
-          </div>
+          </span>
         </div>
       </div>
     </section>
