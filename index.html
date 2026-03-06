@@ -5,369 +5,759 @@
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>PugaXTrade | Análisis inteligente para invertir con claridad</title>
   <meta name="description" content="PugaXTrade: plataforma de análisis inteligente para acciones y ETFs. Señales, indicadores y tableros claros para decidir con disciplina." />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;800&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   <style>
-    :root{
-      --bg1:#070b18;
-      --bg2:#0b1b2a;
-      --card:#0f172a;
-      --text:#e6edf7;
-      --muted:#a7b3c8;
-      --stroke:rgba(255,255,255,.10);
-      --brand:#22c1c3;   /* teal */
-      --brand2:#60a5fa;  /* blue */
-      --shadow: 0 18px 60px rgba(0,0,0,.45);
-      --radius: 18px;
+    :root {
+      --bg:          #080a0f;
+      --bg2:         #0c0f17;
+      --card:        rgba(13,17,30,0.92);
+      --glass:       rgba(11,15,26,0.75);
+      --gold:        #c9a84c;
+      --gold2:       #e8c96d;
+      --gold-dim:    rgba(201,168,76,.13);
+      --gold-border: rgba(201,168,76,.20);
+      --green:       #2ecc71;
+      --green-dim:   rgba(46,204,113,.12);
+      --text:        #e8eaf0;
+      --text2:       #b0b8cc;
+      --muted:       #6b7590;
+      --border:      rgba(255,255,255,.07);
+      --white6:      rgba(255,255,255,.06);
+      --white3:      rgba(255,255,255,.03);
+      --radius:      22px;
     }
-    *{box-sizing:border-box}
-    body{
-      margin:0;
-      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
-      color:var(--text);
-      background:
-        radial-gradient(1200px 700px at 10% 10%, rgba(34,193,195,.25), transparent 55%),
-        radial-gradient(900px 600px at 90% 30%, rgba(96,165,250,.22), transparent 50%),
-        linear-gradient(180deg, var(--bg1), var(--bg2));
-      min-height:100vh;
-    }
-    a{color:inherit}
-    .wrap{
-      max-width:1100px;
-      margin:0 auto;
-      padding: 26px 16px 44px;
-    }
-
-    /* Top bar */
-    .nav{
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      gap:12px;
-      padding: 6px 0 18px;
-    }
-    .logo{
-      display:flex;
-      align-items:center;
-      gap:10px;
-      font-weight:800;
-      letter-spacing:.2px;
-      min-width: 0;
-    }
-    .mark{
-      flex: 0 0 38px;
-      width:38px;height:38px;border-radius:12px;
-      background: linear-gradient(135deg, rgba(34,193,195,.95), rgba(96,165,250,.92));
-      box-shadow: 0 10px 28px rgba(34,193,195,.18);
-      position:relative;
-      border:1px solid rgba(255,255,255,.12);
-    }
-    .mark:before{
-      content:"";
-      position:absolute; inset:10px 11px 11px 10px;
-      border-radius:10px;
-      border:1px solid rgba(255,255,255,.18);
-      transform: skew(-8deg);
-    }
-    .badge{
-      font-size:12px;
-      color:var(--muted);
-      border:1px solid var(--stroke);
-      background: rgba(255,255,255,.04);
-      padding:6px 10px;
-      border-radius:999px;
-      backdrop-filter: blur(10px);
-      white-space: nowrap;
-    }
-
-    /* Layout */
-    .hero{
-      display:grid;
-      grid-template-columns: 1.25fr .75fr;
-      gap:16px;
-      align-items:stretch;
-    }
-
-    .card{
-      background: linear-gradient(180deg, rgba(15,23,42,.92), rgba(15,23,42,.72));
-      border:1px solid var(--stroke);
-      border-radius: var(--radius);
-      box-shadow: var(--shadow);
-      padding: 22px;
-      overflow:hidden;
-      position:relative;
-    }
-    .card:after{
-      content:"";
-      position:absolute;
-      inset:-2px;
-      background:
-        radial-gradient(600px 240px at 0% 0%, rgba(34,193,195,.12), transparent 60%),
-        radial-gradient(600px 240px at 100% 0%, rgba(96,165,250,.10), transparent 60%);
-      pointer-events:none;
-    }
-    .card > *{ position:relative; }
-
-    h1{
-      margin: 10px 0 10px;
-      font-size: clamp(28px, 4.2vw, 46px);
-      line-height:1.08;
-      letter-spacing:-.6px;
-    }
-    .sub{
-      margin:0 0 14px;
-      color: var(--muted);
-      font-size: 16px;
-      line-height:1.6;
-      max-width: 62ch;
-    }
-    .high{
-      background: linear-gradient(90deg, rgba(34,193,195,.25), rgba(96,165,250,.20));
-      border:1px solid rgba(255,255,255,.10);
-      padding: 2px 8px;
-      border-radius: 999px;
-      color: #dff7ff;
-      white-space:nowrap;
-    }
-
-    .pill{
-      display:inline-flex;
-      align-items:center;
-      gap:8px;
-      margin-top: 2px;
-      padding: 8px 10px;
-      border-radius: 999px;
-      border:1px solid var(--stroke);
-      background: rgba(255,255,255,.04);
-      color: var(--muted);
-      font-size: 12px;
-      max-width: 100%;
-      overflow:hidden;
-      text-overflow: ellipsis;
-      white-space: nowrap;
-    }
-    .dot{
-      width:7px;height:7px;border-radius:999px;
-      background: var(--brand);
-      box-shadow: 0 0 0 4px rgba(34,193,195,.12);
-      flex: 0 0 auto;
-    }
-
-    .actions{
-      display:flex;
-      flex-wrap:wrap;
-      gap:12px;
-      margin-top: 14px;
-      align-items:center;
-    }
-    .btn{
-      display:inline-flex;
-      align-items:center;
-      justify-content:center;
-      gap:10px;
-      padding: 12px 16px;
-      border-radius: 14px;
-      text-decoration:none;
-      font-weight:700;
-      border:1px solid rgba(255,255,255,.12);
-      transition: transform .08s ease, box-shadow .15s ease, background .15s ease;
-      user-select:none;
-      will-change: transform;
-    }
-    .btn:active{ transform: translateY(1px); }
-    .btn-primary{
-      background: linear-gradient(135deg, rgba(34,193,195,.98), rgba(96,165,250,.92));
-      color: #06101a;
-      box-shadow: 0 18px 40px rgba(34,193,195,.18);
-    }
-    .btn-primary:hover{ box-shadow: 0 22px 55px rgba(34,193,195,.24); }
-    .btn-ghost{
-      background: rgba(255,255,255,.05);
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Outfit', sans-serif;
       color: var(--text);
-    }
-    .btn-ghost:hover{ background: rgba(255,255,255,.08); }
-
-    .kpi{
-      display:flex; gap:10px; align-items:center;
-      margin-top: 14px;
-      flex-wrap:wrap;
-      color: var(--muted);
-      font-size: 13px;
+      background: var(--bg);
+      min-height: 100vh;
+      overflow-x: hidden;
     }
 
-    .grid{
-      display:grid;
-      grid-template-columns: repeat(2, minmax(0,1fr));
-      gap:12px;
-      margin-top: 16px;
+    /* BACKGROUND */
+    .bg-scene {
+      position: fixed; inset: 0; z-index: 0; pointer-events: none; overflow: hidden;
     }
-    .feat{
-      border:1px solid var(--stroke);
-      background: rgba(255,255,255,.04);
-      border-radius: 16px;
-      padding: 14px 14px;
-      min-height: 92px;
+    .bg-scene::before {
+      content: "";
+      position: absolute; inset: 0;
+      background:
+        radial-gradient(ellipse 800px 500px at 15% -5%,  rgba(201,168,76,.10) 0%, transparent 55%),
+        radial-gradient(ellipse 600px 400px at 85% 15%,  rgba(46,204,113,.07) 0%, transparent 50%),
+        radial-gradient(ellipse 900px 600px at 50% 100%, rgba(201,168,76,.06) 0%, transparent 55%),
+        linear-gradient(170deg, #080a0f 0%, #0c0f17 40%, #080a12 100%);
     }
-    .feat h3{
-      margin:0 0 6px;
-      font-size: 14px;
-      letter-spacing:.2px;
-    }
-    .feat p{
-      margin:0;
-      color: var(--muted);
-      font-size: 13px;
-      line-height:1.55;
+    .bg-scene::after {
+      content: "";
+      position: absolute; inset: 0;
+      background-image:
+        linear-gradient(rgba(201,168,76,.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(201,168,76,.03) 1px, transparent 1px);
+      background-size: 52px 52px;
+      mask-image: radial-gradient(ellipse 90% 60% at 50% 20%, black 20%, transparent 100%);
     }
 
-    .side{
-      display:flex;
-      flex-direction:column;
-      gap:14px;
+    /* TICKER */
+    .ticker-bar {
+      position: relative; z-index: 2;
+      background: rgba(201,168,76,.07);
+      border-bottom: 1px solid var(--gold-border);
+      padding: 8px 0;
+      overflow: hidden;
+      display: flex;
     }
-    .mini{
-      background: linear-gradient(180deg, rgba(17,28,51,.85), rgba(15,23,42,.55));
-      border:1px solid var(--stroke);
-      border-radius: var(--radius);
-      padding: 18px;
-      box-shadow: var(--shadow);
+    .ticker-track {
+      display: flex; gap: 42px;
+      animation: ticker 30s linear infinite;
+      white-space: nowrap; padding: 0 24px;
+      flex-shrink: 0;
     }
-    .mini h2{
-      margin:0 0 10px;
-      font-size: 16px;
-      letter-spacing:.2px;
+    @keyframes ticker {
+      from { transform: translateX(0); }
+      to   { transform: translateX(-50%); }
     }
-    .mini ul{
-      margin:0;
-      padding:0 0 0 16px;
-      color: var(--muted);
-      line-height:1.65;
-      font-size: 13px;
+    .tick-item {
+      display: inline-flex; align-items: center; gap: 6px;
+      font-size: 11.5px; font-weight: 500; color: var(--muted); letter-spacing: .5px;
+    }
+    .tick-sep { color: var(--gold-border); opacity: .5; }
+    .up   { color: #2ecc71; }
+    .down { color: #e74c3c; }
+
+    /* WRAP */
+    .wrap {
+      position: relative; z-index: 1;
+      max-width: 1180px; margin: 0 auto; padding: 0 28px 90px;
     }
 
-    .hr{
-      height:1px;
-      background: rgba(255,255,255,.10);
-      margin: 14px 0;
-      border:0;
+    /* NAV */
+    nav {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 28px 0 0; gap: 16px;
     }
-    .foot{
-      margin-top: 18px;
-      color: rgba(167,179,200,.85);
-      font-size: 12px;
-      line-height:1.5;
+    .logo {
+      display: flex; align-items: center; gap: 13px;
+      text-decoration: none; color: var(--text);
     }
-    .icon{width:18px;height:18px; display:inline-block;}
+    .logo-mark {
+      width: 44px; height: 44px; border-radius: 12px;
+      background: linear-gradient(140deg, #1a1507 0%, #2c200a 100%);
+      border: 1px solid var(--gold-border);
+      display: flex; align-items: center; justify-content: center;
+      box-shadow: 0 0 0 1px rgba(201,168,76,.07), 0 8px 28px rgba(0,0,0,.5);
+      position: relative; overflow: hidden; flex-shrink: 0;
+    }
+    .logo-mark::before {
+      content: ""; position: absolute; top: 0; left: 0; right: 0; height: 50%;
+      background: linear-gradient(180deg, rgba(201,168,76,.12), transparent);
+    }
+    .logo-mark svg { width: 22px; height: 22px; position: relative; z-index: 1; }
+    .logo-name { display: flex; flex-direction: column; gap: 1px; }
+    .logo-title {
+      font-family: 'Playfair Display', serif; font-weight: 800; font-size: 19px;
+      letter-spacing: -.2px; color: var(--text); line-height: 1;
+    }
+    .logo-sub {
+      font-size: 10px; color: var(--gold); letter-spacing: 1.8px;
+      text-transform: uppercase; font-weight: 500;
+    }
+    .nav-pill {
+      display: flex; align-items: center; gap: 8px;
+      padding: 8px 16px; border: 1px solid var(--border); border-radius: 999px;
+      background: var(--white6); backdrop-filter: blur(12px);
+      font-size: 12px; color: var(--muted); white-space: nowrap;
+    }
+    .live-dot {
+      width: 6px; height: 6px; border-radius: 50%;
+      background: var(--green); box-shadow: 0 0 0 3px var(--green-dim);
+      animation: livepulse 2s ease infinite; flex-shrink: 0;
+    }
+    @keyframes livepulse {
+      0%,100% { box-shadow: 0 0 0 3px rgba(46,204,113,.15); }
+      50%      { box-shadow: 0 0 0 6px rgba(46,204,113,.05); }
+    }
 
-    /* Mobile: 1 column, buttons full width, badge hides */
-    @media (max-width: 900px){
-      .hero{ grid-template-columns: 1fr; }
+    /* HERO */
+    .hero {
+      display: grid; grid-template-columns: 1.3fr .7fr;
+      gap: 22px; margin-top: 40px; align-items: start;
     }
-    @media (max-width: 640px){
-      .wrap{ padding: 18px 14px 34px; }
-      .badge{ display:none; }
-      .card{ padding: 18px; }
-      .actions{ gap:10px; }
-      .btn{ width:100%; }
-      .grid{ grid-template-columns: 1fr; }
-      .kpi{ font-size: 12px; }
+
+    /* MAIN CARD */
+    .main-card {
+      border: 1px solid var(--border); border-radius: 28px;
+      background: var(--card); backdrop-filter: blur(24px);
+      padding: 48px 48px 38px; position: relative; overflow: hidden;
+      box-shadow: 0 0 0 1px rgba(201,168,76,.05), 0 40px 100px rgba(0,0,0,.65),
+                  inset 0 1px 0 rgba(255,255,255,.05);
+    }
+    .main-card::before {
+      content: ""; position: absolute; top: 0; left: 60px; right: 60px; height: 1px;
+      background: linear-gradient(90deg, transparent, var(--gold), rgba(232,201,109,.5), transparent);
+    }
+    .main-card::after {
+      content: ""; position: absolute; top: -80px; right: -80px;
+      width: 300px; height: 300px;
+      background: radial-gradient(circle, var(--gold-dim) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .corner-mark {
+      position: absolute; top: 24px; right: 24px;
+      font-size: 10px; letter-spacing: 2px; color: var(--muted);
+      text-transform: uppercase; opacity: .45; font-weight: 500;
+    }
+    .eyebrow {
+      display: inline-flex; align-items: center; gap: 9px;
+      padding: 6px 14px 6px 10px; border-radius: 999px;
+      border: 1px solid var(--gold-border); background: var(--gold-dim);
+      font-size: 12px; color: var(--gold2); letter-spacing: .4px;
+      font-weight: 500; margin-bottom: 28px;
+    }
+    h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(34px, 4.2vw, 54px);
+      font-weight: 800; line-height: 1.06; letter-spacing: -.8px; margin-bottom: 22px;
+    }
+    h1 .gold-word {
+      background: linear-gradient(90deg, var(--gold) 0%, var(--gold2) 60%, #f0d98a 100%);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+    }
+    .sub {
+      font-size: 16px; line-height: 1.72; color: var(--text2);
+      max-width: 55ch; margin-bottom: 34px; font-weight: 300;
+    }
+    .sub strong { color: var(--text); font-weight: 600; }
+    .sub .chip {
+      display: inline-block; padding: 2px 10px; border-radius: 999px;
+      background: linear-gradient(90deg, rgba(201,168,76,.16), rgba(232,201,109,.10));
+      border: 1px solid rgba(201,168,76,.22); color: var(--gold2);
+      font-size: 14px; font-weight: 500;
+    }
+
+    /* BUTTONS */
+    .actions { display: flex; flex-wrap: wrap; gap: 13px; margin-bottom: 38px; }
+    .btn {
+      display: inline-flex; align-items: center; justify-content: center; gap: 9px;
+      padding: 14px 24px; border-radius: 13px;
+      font-family: 'Outfit', sans-serif; font-weight: 600; font-size: 15px;
+      text-decoration: none; border: none; cursor: pointer;
+      transition: all .2s ease; white-space: nowrap; letter-spacing: .1px;
+    }
+    .btn-gold {
+      background: linear-gradient(135deg, #b8932e 0%, #e8c96d 45%, #c9a84c 100%);
+      background-size: 200% 100%; background-position: 0% 50%;
+      color: #07080c; font-weight: 700;
+      box-shadow: 0 10px 34px rgba(201,168,76,.28), 0 1px 0 rgba(255,255,255,.2) inset;
+    }
+    .btn-gold:hover {
+      background-position: 100% 50%; transform: translateY(-2px);
+      box-shadow: 0 18px 48px rgba(201,168,76,.40), 0 1px 0 rgba(255,255,255,.2) inset;
+    }
+    .btn-gold:active { transform: translateY(0); }
+    .btn-ghost {
+      background: var(--white6); color: var(--text2); border: 1px solid var(--border);
+    }
+    .btn-ghost:hover {
+      background: rgba(255,255,255,.09); color: var(--text);
+      border-color: rgba(255,255,255,.14);
+    }
+    .btn svg { width: 16px; height: 16px; transition: transform .2s ease; }
+    .btn-gold:hover svg { transform: translateX(3px); }
+
+    /* KPI ROW */
+    .kpi-row {
+      display: flex; flex-wrap: wrap; gap: 8px 22px; margin-bottom: 34px;
+    }
+    .kpi-item {
+      display: flex; align-items: center; gap: 8px;
+      font-size: 13px; color: var(--muted);
+    }
+    .kpi-dot {
+      width: 5px; height: 5px; border-radius: 50%;
+      background: var(--gold); opacity: .7; flex-shrink: 0;
+    }
+
+    /* FEATURES */
+    .feat-grid {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 34px;
+    }
+    .feat-card {
+      border: 1px solid var(--border); border-radius: 16px;
+      background: var(--white3); padding: 20px 20px 18px;
+      position: relative; overflow: hidden;
+      transition: border-color .22s ease, background .22s ease, transform .18s ease;
+    }
+    .feat-card:hover {
+      border-color: var(--gold-border); background: var(--gold-dim); transform: translateY(-2px);
+    }
+    .feat-card::before {
+      content: ""; position: absolute; top: 0; left: 0; right: 0; height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(201,168,76,.3), transparent);
+      opacity: 0; transition: opacity .22s ease;
+    }
+    .feat-card:hover::before { opacity: 1; }
+    .feat-icon-wrap {
+      width: 36px; height: 36px; border-radius: 10px;
+      background: linear-gradient(135deg, rgba(201,168,76,.14), rgba(201,168,76,.06));
+      border: 1px solid rgba(201,168,76,.18);
+      display: flex; align-items: center; justify-content: center;
+      margin-bottom: 12px; font-size: 17px;
+    }
+    .feat-card h3 {
+      font-size: 14px; font-weight: 600; margin-bottom: 6px; color: var(--text);
+    }
+    .feat-card p {
+      font-size: 13px; color: var(--muted); line-height: 1.6; font-weight: 300;
+    }
+
+    .divider {
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--border), transparent);
+      margin: 0 0 20px;
+    }
+    .disclaimer { font-size: 12px; color: rgba(107,117,144,.6); line-height: 1.6; }
+
+    /* SIDE PANEL */
+    .side-panel { display: flex; flex-direction: column; gap: 16px; }
+    .side-card {
+      border: 1px solid var(--border); border-radius: 24px;
+      background: var(--glass); backdrop-filter: blur(20px); padding: 28px;
+      position: relative; overflow: hidden;
+      box-shadow: 0 24px 64px rgba(0,0,0,.5), inset 0 1px 0 rgba(255,255,255,.04);
+    }
+    .side-card::before {
+      content: ""; position: absolute; top: 0; left: 40px; right: 40px; height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(201,168,76,.35), transparent);
+    }
+    .side-card h2 {
+      font-family: 'Playfair Display', serif; font-size: 16px; font-weight: 700;
+      margin-bottom: 18px; color: var(--text);
+    }
+    .benefit-list {
+      list-style: none; display: flex; flex-direction: column; gap: 12px; margin-bottom: 24px;
+    }
+    .benefit-list li {
+      display: flex; align-items: flex-start; gap: 11px;
+      font-size: 14px; color: var(--text2); line-height: 1.5; font-weight: 300;
+    }
+    .check-wrap {
+      width: 20px; height: 20px; border-radius: 6px;
+      background: linear-gradient(135deg, rgba(201,168,76,.18), rgba(201,168,76,.07));
+      border: 1px solid rgba(201,168,76,.25);
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0; margin-top: 1px;
+    }
+    .check-wrap svg { width: 11px; height: 11px; stroke: var(--gold); }
+    .side-card .btn { width: 100%; font-size: 14px; padding: 13px 18px; }
+
+    /* STATS */
+    .stats-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-top: 20px;
+    }
+    .stat-box {
+      text-align: center; padding: 16px 8px;
+      border: 1px solid var(--border); border-radius: 14px;
+      background: var(--white3); transition: border-color .2s;
+    }
+    .stat-box:hover { border-color: var(--gold-border); }
+    .stat-num {
+      font-family: 'Playfair Display', serif; font-size: 24px; font-weight: 800;
+      background: linear-gradient(90deg, var(--gold), var(--gold2));
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+      background-clip: text; display: block; line-height: 1.1; margin-bottom: 5px;
+    }
+    .stat-lbl { font-size: 11px; color: var(--muted); line-height: 1.4; }
+
+    /* MARKET WIDGET */
+    .market-widget { display: flex; flex-direction: column; gap: 8px; margin-top: 6px; }
+    .market-row {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 9px 12px; border-radius: 10px;
+      background: var(--white3); border: 1px solid var(--border); font-size: 13px;
+      transition: border-color .2s;
+    }
+    .market-row:hover { border-color: var(--gold-border); }
+    .market-name { color: var(--text2); font-weight: 500; font-size: 12px; letter-spacing: .3px; }
+    .market-val  { font-weight: 600; font-size: 12px; }
+
+    /* ANIMATIONS */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(28px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    .ticker-bar { animation: fadeUp .4s ease both; }
+    .main-card  { animation: fadeUp .65s cubic-bezier(.16,1,.3,1) both; }
+    .side-panel { animation: fadeUp .65s .12s cubic-bezier(.16,1,.3,1) both; }
+
+    /* RESPONSIVE */
+    @media (max-width: 960px) {
+      .hero { grid-template-columns: 1fr; }
+      .side-panel { flex-direction: row; flex-wrap: wrap; }
+      .side-card  { flex: 1 1 280px; }
+    }
+    @media (max-width: 640px) {
+      .wrap      { padding: 0 16px 60px; }
+      .main-card { padding: 28px 22px 24px; }
+      nav        { padding-top: 20px; }
+      .nav-pill  { display: none; }
+      .btn       { width: 100%; }
+      .actions   { flex-direction: column; }
+      .feat-grid { grid-template-columns: 1fr; }
+      .stats-grid{ grid-template-columns: 1fr; }
+      .side-panel{ flex-direction: column; }
+      .corner-mark { display: none; }
     }
   </style>
 </head>
-
 <body>
-  <div class="wrap">
-    <div class="nav">
-      <div class="logo">
-        <span class="mark" aria-hidden="true"></span>
-        <span>PugaXTrade</span>
+
+<div class="bg-scene" aria-hidden="true"></div>
+
+<!-- TICKER -->
+<div class="ticker-bar" aria-label="Mercado en tiempo real">
+  <div class="ticker-track">
+    <span class="tick-item">NVDA <span class="up">▲ 2.34%</span></span><span class="tick-sep">·</span>
+    <span class="tick-item">AAPL <span class="up">▲ 0.87%</span></span><span class="tick-sep">·</span>
+    <span class="tick-item">MSFT <span class="up">▲ 1.12%</span></span><span class="tick-sep">·</span>
+    <span class="tick-item">TSLA <span class="down">▼ 1.45%</span></span><span class="tick-sep">·</span>
+    <span class="tick-item">META <span class="up">▲ 0.63%</span></span><span class="tick-sep">·</span>
+    <span class="tick-item">AMZN <span class="up">▲ 1.78%</span></span><span class="tick-sep">·</span>
+    <span class="tick-item">GOOGL <span class="down">▼ 0.22%</span></span><span class="tick-sep">·</span>
+    <span class="tick-item">JPM <span class="up">▲ 0.55%</span></span><span class="tick-sep">·</span>
+    <span class="tick-item">GS <span class="up">▲ 1.03%</span></span><span class="tick-sep">·</span>
+    <span class="tick-item">S&amp;P 500 <span class="up">▲ 0.61%</span></span><span class="tick-sep">·</span>
+    <span class="tick-item">NASDAQ <span class="up">▲ 0.94%</span></span><span class="tick-sep">·</span>
+    <span class="tick-item">DOW <span class="down">▼ 0.18%</span></span><span class="tick-sep">·</span>
+    <!-- duplicate for seamless loop -->
+    <span class="tick-item">NVDA <span class="up">▲ 2.34%</span></span><span class="tick-sep">·</span>
+    <span class="tick-item">AAPL <span class="up">▲ 0.87%</span></span><span class="tick-sep">·</span>
+    <span class="tick-item">MSFT <span class="up">▲ 1.12%</span></span><span class="tick-sep">·</span>
+    <span class="tick-item">TSLA <span class="down">▼ 1.45%</span></span><span class="tick-sep">·</span>
+    <span class="tick-item">META <span class="up">▲ 0.63%</span></span><span class="tick-sep">·</span>
+    <span class="tick-item">AMZN <span class="up">▲ 1.78%</span></span><span class="tick-sep">·</span>
+    <span class="tick-item">GOOGL <span class="down">▼ 0.22%</span></span><span class="tick-sep">·</span>
+    <span class="tick-item">JPM <span class="up">▲ 0.55%</span></span><span class="tick-sep">·</span>
+  </div>
+</div>
+
+<div class="wrap">
+
+  <!-- NAV -->
+  <nav>
+    <a class="logo" href="#">
+      <div class="logo-mark">
+        <svg viewBox="0 0 24 24" fill="none">
+          <polyline points="3,17 7,12 11,15 15,9 19,13" stroke="#c9a84c" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          <polyline points="15,9 19,9 19,13"             stroke="#c9a84c" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
       </div>
-      <span class="badge">Análisis inteligente • Señales claras • Disciplina</span>
+      <div class="logo-name">
+        <span class="logo-title">PugaXTrade</span>
+        <span class="logo-sub">Análisis Bursátil</span>
+      </div>
+    </a>
+    <span class="nav-pill">
+      <span class="live-dot"></span>
+      Mercado abierto · Análisis en tiempo real
+    </span>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero">
+
+    <!-- MAIN CARD -->
+    <div class="main-card">
+      <span class="corner-mark">EST. 2024</span>
+
+      <div class="eyebrow">
+        <span class="live-dot"></span>
+        Plataforma profesional para acciones y ETFs
+      </div>
+
+      <h1>Invierte con <span class="gold-word">claridad</span>,<br>no con corazonadas.</h1>
+
+      <p class="sub">
+        <strong>PugaXTrade</strong> es tu tablero de análisis para tomar decisiones con disciplina:
+        indicadores, señales y lecturas rápidas del mercado en un entorno visual y ordenado.
+        Diseñado para que pases de "no sé qué hacer" a <span class="chip">una acción concreta</span>.
+      </p>
+
+      <div class="actions">
+        <a class="btn btn-gold" href="https://app.pugaxtrade.com" target="_blank" rel="noopener">
+          Entrar a la plataforma
+          <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <path d="M9 18l6-6-6-6" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </a>
+        <button class="btn btn-ghost" onclick="openModal()">Ver beneficios</button>
+      </div>
+
+      <div class="kpi-row">
+        <span class="kpi-item"><span class="kpi-dot"></span>Lectura rápida del mercado</span>
+        <span class="kpi-item"><span class="kpi-dot"></span>Señales e indicadores</span>
+        <span class="kpi-item"><span class="kpi-dot"></span>Flujo de decisión consistente</span>
+      </div>
+
+      <div id="beneficios" class="feat-grid">
+        <div class="feat-card">
+          <div class="feat-icon-wrap">📊</div>
+          <h3>Tableros y semáforos</h3>
+          <p>Visualiza tendencias, fuerza y momentum en segundos, sin perderte en mil gráficas.</p>
+        </div>
+        <div class="feat-card">
+          <div class="feat-icon-wrap">⚙️</div>
+          <h3>Indicadores listos</h3>
+          <p>RSI, medias, volatilidad y más, integrados para lectura práctica y consistente.</p>
+        </div>
+        <div class="feat-card">
+          <div class="feat-icon-wrap">🧭</div>
+          <h3>Decisiones con disciplina</h3>
+          <p>Convierte datos en acciones: observar, entrar, ajustar o salir con criterio.</p>
+        </div>
+        <div class="feat-card">
+          <div class="feat-icon-wrap">🧠</div>
+          <h3>Enfoque "menos ruido"</h3>
+          <p>Una interfaz limpia para enfocarte en lo importante: probabilidad y gestión de riesgo.</p>
+        </div>
+      </div>
+
+      <div class="divider"></div>
+      <p class="disclaimer">
+        *Aviso: PugaXTrade es una herramienta de análisis. No constituye asesoría financiera.
+        Toda inversión conlleva riesgo. Los rendimientos pasados no garantizan resultados futuros.
+      </p>
     </div>
 
-    <section class="hero">
-      <div class="card">
-        <span class="pill">
-          <span class="dot" aria-hidden="true"></span>
-          Plataforma para análisis de acciones y ETFs con enfoque práctico
-        </span>
+    <!-- SIDE PANEL -->
+    <div class="side-panel">
 
-        <h1>Invierte con claridad, no con corazonadas.</h1>
-        <p class="sub">
-          <strong>PugaXTrade</strong> es tu tablero de análisis para tomar decisiones con disciplina:
-          indicadores, señales y lecturas rápidas del mercado en un entorno visual y ordenado.
-          Diseñado para que pases de “no sé qué hacer” a <span class="high">una acción concreta</span>.
-        </p>
-
-        <div class="actions">
-          <a class="btn btn-primary" href="/pugaxtrade/">
-            Entrar a la plataforma
-            <svg class="icon" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-              <path d="M9 18l6-6-6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-            </svg>
-          </a>
-
-          <a class="btn btn-ghost" href="#beneficios">Ver beneficios</a>
-        </div>
-
-        <div class="kpi">
-          <span><span class="dot"></span> Lectura rápida del mercado</span>
-          <span><span class="dot"></span> Señales e indicadores</span>
-          <span><span class="dot"></span> Flujo de decisión consistente</span>
-        </div>
-
-        <div id="beneficios" class="grid" aria-label="Beneficios de PugaXTrade">
-          <div class="feat">
-            <h3>📊 Tableros y semáforos</h3>
-            <p>Visualiza tendencias, fuerza y momentum en segundos, sin perderte en mil gráficas.</p>
-          </div>
-          <div class="feat">
-            <h3>⚙️ Indicadores listos</h3>
-            <p>RSI, medias, volatilidad y más, integrados para lectura práctica y consistente.</p>
-          </div>
-          <div class="feat">
-            <h3>🧭 Decisiones con disciplina</h3>
-            <p>Convierte datos en acciones: observar, entrar, ajustar o salir con criterio.</p>
-          </div>
-          <div class="feat">
-            <h3>🧠 Enfoque “menos ruido”</h3>
-            <p>Una interfaz limpia para enfocarte en lo importante: probabilidad y gestión de riesgo.</p>
-          </div>
-        </div>
-
-        <hr class="hr" />
-
-        <p class="foot">
-          *Aviso: PugaXTrade es una herramienta de análisis. No constituye asesoría financiera.
-          Toda inversión conlleva riesgo.
-        </p>
+      <div class="side-card">
+        <h2>¿Qué obtienes al entrar?</h2>
+        <ul class="benefit-list">
+          <li>
+            <span class="check-wrap" aria-hidden="true">
+              <svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </span>
+            Vista rápida del mercado y activos clave
+          </li>
+          <li>
+            <span class="check-wrap" aria-hidden="true">
+              <svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </span>
+            Señales e indicadores para contexto
+          </li>
+          <li>
+            <span class="check-wrap" aria-hidden="true">
+              <svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </span>
+            Apoyo para un proceso de decisión repetible
+          </li>
+        </ul>
+        <a class="btn btn-gold" href="https://app.pugaxtrade.com" target="_blank" rel="noopener">
+          Acceder ahora
+          <svg viewBox="0 0 24 24" fill="none" width="15" height="15" aria-hidden="true">
+            <path d="M9 18l6-6-6-6" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </a>
       </div>
 
-      <div class="side">
-        <div class="mini">
-          <h2>¿Qué obtienes al entrar?</h2>
-          <ul>
-            <li>Vista rápida del mercado y activos clave</li>
-            <li>Señales e indicadores para contexto</li>
-            <li>Apoyo para un proceso de decisión repetible</li>
-          </ul>
-          <div class="actions" style="margin-top:14px;">
-            <a class="btn btn-primary" href="/pugaxtrade/">Acceder</a>
+      <div class="side-card">
+        <h2>Ideal para ti si…</h2>
+        <ul class="benefit-list">
+          <li>
+            <span class="check-wrap" aria-hidden="true">
+              <svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </span>
+            Quieres orden y consistencia para operar
+          </li>
+          <li>
+            <span class="check-wrap" aria-hidden="true">
+              <svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </span>
+            Buscas reducir impulsos y "sobre-trading"
+          </li>
+          <li>
+            <span class="check-wrap" aria-hidden="true">
+              <svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </span>
+            Necesitas una lectura clara y rápida
+          </li>
+        </ul>
+        <div class="stats-grid">
+          <div class="stat-box">
+            <span class="stat-num">100+</span>
+            <span class="stat-lbl">Tickers analizados</span>
+          </div>
+          <div class="stat-box">
+            <span class="stat-num">10+</span>
+            <span class="stat-lbl">Indicadores</span>
+          </div>
+          <div class="stat-box">
+            <span class="stat-num">1‑clic</span>
+            <span class="stat-lbl">Para tu análisis</span>
           </div>
         </div>
+      </div>
 
-        <div class="mini">
-          <h2>Ideal para ti si…</h2>
-          <ul>
-            <li>Quieres orden y consistencia para operar</li>
-            <li>Buscas reducir impulsos y “sobre-trading”</li>
-            <li>Necesitas una lectura clara y rápida</li>
-          </ul>
-          <span class="pill" style="margin-top:12px;">
-            <span class="dot" aria-hidden="true"></span>
-            Hecho para velocidad y claridad visual
-          </span>
+      <div class="side-card">
+        <h2>Mercados hoy</h2>
+        <div class="market-widget">
+          <div class="market-row">
+            <span class="market-name">S&amp;P 500</span>
+            <span class="market-val up">▲ 0.61%</span>
+          </div>
+          <div class="market-row">
+            <span class="market-name">NASDAQ</span>
+            <span class="market-val up">▲ 0.94%</span>
+          </div>
+          <div class="market-row">
+            <span class="market-name">DOW JONES</span>
+            <span class="market-val down">▼ 0.18%</span>
+          </div>
+          <div class="market-row">
+            <span class="market-name">VIX (Volatilidad)</span>
+            <span class="market-val down">▼ 1.20%</span>
+          </div>
         </div>
       </div>
-    </section>
+
+    </div>
+  </section>
+</div>
+
+
+<!-- BENEFITS MODAL -->
+<div id="beneficiosModal" class="modal-backdrop" onclick="closeModalOutside(event)" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+  <div class="modal-box">
+    <button class="modal-close" onclick="closeModal()" aria-label="Cerrar">
+      <svg viewBox="0 0 24 24" fill="none" width="18" height="18">
+        <path d="M18 6L6 18M6 6l12 12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+      </svg>
+    </button>
+    <div class="modal-header">
+      <div class="modal-eyebrow">
+        <span class="live-dot"></span>
+        Plataforma de análisis bursátil con IA
+      </div>
+      <h2 id="modalTitle" class="modal-title">
+        Análisis inteligente del<br><span class="gold-word">mercado en segundos</span>
+      </h2>
+      <p class="modal-desc">
+        PugaXTrade utiliza análisis avanzado e inteligencia artificial para evaluar empresas de bolsa
+        y ayudarte a tomar mejores decisiones de inversión.
+      </p>
+    </div>
+    <div class="modal-grid">
+      <div class="mbenefit-card">
+        <div class="mbenefit-icon">⚡</div>
+        <div>
+          <h3>Análisis automático de acciones</h3>
+          <p>Evalúa múltiples empresas del mercado en segundos, sin esfuerzo manual.</p>
+        </div>
+      </div>
+      <div class="mbenefit-card">
+        <div class="mbenefit-icon">📈</div>
+        <div>
+          <h3>Indicadores técnicos avanzados</h3>
+          <p>Identifica tendencias y posibles oportunidades de compra o venta con precisión.</p>
+        </div>
+      </div>
+      <div class="mbenefit-card">
+        <div class="mbenefit-icon">🏦</div>
+        <div>
+          <h3>Evaluación financiera de empresas</h3>
+          <p>Analiza datos clave como crecimiento, rentabilidad y salud financiera.</p>
+        </div>
+      </div>
+      <div class="mbenefit-card">
+        <div class="mbenefit-icon">⏱️</div>
+        <div>
+          <h3>Ahorro de tiempo</h3>
+          <p>Obtén análisis claros sin revisar cientos de datos manualmente.</p>
+        </div>
+      </div>
+      <div class="mbenefit-card mbenefit-wide">
+        <div class="mbenefit-icon">🧠</div>
+        <div>
+          <h3>Información para mejores decisiones</h3>
+          <p>Accede a datos estructurados para invertir con mayor confianza y criterio.</p>
+        </div>
+      </div>
+    </div>
+    <div class="modal-phrase">
+      <div class="phrase-line"></div>
+      <p class="phrase-text">Analiza el mercado.&nbsp; Detecta oportunidades.&nbsp; <span class="gold-word">Invierte con inteligencia.</span></p>
+      <div class="phrase-line"></div>
+    </div>
+    <div style="text-align:center; margin-top: 28px;">
+      <a class="btn btn-gold" href="https://app.pugaxtrade.com" target="_blank" rel="noopener" style="display:inline-flex;">
+        Comenzar ahora
+        <svg viewBox="0 0 24 24" fill="none" width="16" height="16" aria-hidden="true">
+          <path d="M9 18l6-6-6-6" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </a>
+    </div>
   </div>
+</div>
+
+<style>
+  .modal-backdrop {
+    display: none; position: fixed; inset: 0; z-index: 100;
+    background: rgba(4,6,12,.85); backdrop-filter: blur(8px);
+    align-items: center; justify-content: center; padding: 20px;
+  }
+  .modal-backdrop.open { display: flex; }
+  .modal-box {
+    position: relative; max-width: 760px; width: 100%;
+    max-height: 90vh; overflow-y: auto;
+    background: rgba(10,14,26,0.98);
+    border: 1px solid var(--gold-border); border-radius: 28px;
+    padding: 48px 48px 44px;
+    box-shadow: 0 0 0 1px rgba(201,168,76,.08), 0 50px 120px rgba(0,0,0,.8), inset 0 1px 0 rgba(255,255,255,.06);
+    animation: modalIn .28s cubic-bezier(.16,1,.3,1) both;
+    scrollbar-width: thin; scrollbar-color: rgba(201,168,76,.2) transparent;
+  }
+  @keyframes modalIn {
+    from { opacity: 0; transform: translateY(20px) scale(.97); }
+    to   { opacity: 1; transform: translateY(0) scale(1); }
+  }
+  .modal-box::before {
+    content: ""; position: absolute; top: 0; left: 60px; right: 60px; height: 1px;
+    background: linear-gradient(90deg, transparent, var(--gold), rgba(232,201,109,.5), transparent);
+  }
+  .modal-close {
+    position: absolute; top: 20px; right: 20px;
+    width: 36px; height: 36px; border-radius: 10px;
+    background: var(--white6); border: 1px solid var(--border);
+    color: var(--muted); cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    transition: background .18s, color .18s;
+  }
+  .modal-close:hover { background: rgba(255,255,255,.1); color: var(--text); }
+  .modal-header { margin-bottom: 32px; }
+  .modal-eyebrow {
+    display: inline-flex; align-items: center; gap: 8px;
+    padding: 5px 12px 5px 9px; border-radius: 999px;
+    border: 1px solid var(--gold-border); background: var(--gold-dim);
+    font-size: 11.5px; color: var(--gold2); letter-spacing: .4px;
+    font-weight: 500; margin-bottom: 18px;
+  }
+  .modal-title {
+    font-family: "Playfair Display", serif;
+    font-size: clamp(26px, 3.5vw, 38px); font-weight: 800;
+    line-height: 1.1; letter-spacing: -.6px; margin-bottom: 14px;
+  }
+  .modal-desc { font-size: 15px; color: var(--text2); line-height: 1.7; font-weight: 300; max-width: 58ch; }
+  .modal-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 13px; margin-bottom: 30px; }
+  .mbenefit-card {
+    display: flex; align-items: flex-start; gap: 14px;
+    padding: 20px; border: 1px solid var(--border); border-radius: 16px;
+    background: var(--white3); transition: border-color .2s, background .2s, transform .18s;
+  }
+  .mbenefit-card:hover { border-color: var(--gold-border); background: var(--gold-dim); transform: translateY(-2px); }
+  .mbenefit-wide { grid-column: span 2; }
+  .mbenefit-icon {
+    font-size: 20px; flex-shrink: 0; width: 44px; height: 44px; border-radius: 12px;
+    background: linear-gradient(135deg, rgba(201,168,76,.15), rgba(201,168,76,.06));
+    border: 1px solid rgba(201,168,76,.18); display: flex; align-items: center; justify-content: center;
+  }
+  .mbenefit-card h3 { font-size: 14px; font-weight: 600; color: var(--text); margin-bottom: 6px; }
+  .mbenefit-card p  { font-size: 13px; color: var(--muted); line-height: 1.58; font-weight: 300; }
+  .modal-phrase {
+    display: flex; align-items: center; gap: 16px; padding: 20px 0 4px;
+  }
+  .phrase-line { flex: 1; height: 1px; background: linear-gradient(90deg, transparent, rgba(201,168,76,.3)); }
+  .phrase-line:last-child { background: linear-gradient(90deg, rgba(201,168,76,.3), transparent); }
+  .phrase-text {
+    font-family: "Playfair Display", serif; font-size: 15px;
+    font-weight: 700; font-style: italic; color: var(--text2);
+    text-align: center; white-space: nowrap; flex-shrink: 0;
+  }
+  @media (max-width: 600px) {
+    .modal-box    { padding: 30px 20px 28px; border-radius: 20px; }
+    .modal-grid   { grid-template-columns: 1fr; }
+    .mbenefit-wide{ grid-column: span 1; }
+    .phrase-text  { white-space: normal; font-size: 13px; }
+  }
+</style>
+
+<script>
+  function openModal() {
+    document.getElementById("beneficiosModal").classList.add("open");
+    document.body.style.overflow = "hidden";
+  }
+  function closeModal() {
+    document.getElementById("beneficiosModal").classList.remove("open");
+    document.body.style.overflow = "";
+  }
+  function closeModalOutside(e) {
+    if (e.target === document.getElementById("beneficiosModal")) closeModal();
+  }
+  document.addEventListener("keydown", e => { if (e.key === "Escape") closeModal(); });
+</script>
+
 </body>
 </html>
