@@ -115,8 +115,8 @@
     }
     .social-icon svg { width: 18px; height: 18px; }
     .social-meta { display: flex; flex-direction: column; gap: 2px; }
-    .social-name { font-size: 13px; font-weight: 600; color: var(--text); }
-    .social-handle { font-size: 11px; color: var(--muted); }
+    .social-name { font-size: 15px; font-weight: 600; color: var(--text); }
+    .social-handle { font-size: 12px; color: var(--muted); }
 
     /* VIDEO CARD */
     .video-wrap {
@@ -159,18 +159,18 @@
     .logo-mark svg { width: 22px; height: 22px; position: relative; z-index: 1; }
     .logo-name { display: flex; flex-direction: column; gap: 1px; }
     .logo-title {
-      font-family: 'Playfair Display', serif; font-weight: 800; font-size: 19px;
+      font-family: 'Playfair Display', serif; font-weight: 800; font-size: 22px;
       letter-spacing: -.2px; color: var(--text); line-height: 1;
     }
     .logo-sub {
-      font-size: 10px; color: var(--gold); letter-spacing: 1.8px;
+      font-size: 11px; color: var(--gold); letter-spacing: 1.8px;
       text-transform: uppercase; font-weight: 500;
     }
     .nav-pill {
       display: flex; align-items: center; gap: 8px;
-      padding: 8px 16px; border: 1px solid var(--border); border-radius: 999px;
+      padding: 9px 18px; border: 1px solid var(--border); border-radius: 999px;
       background: var(--white6); backdrop-filter: blur(12px);
-      font-size: 12px; color: var(--muted); white-space: nowrap;
+      font-size: 13px; color: var(--muted); white-space: nowrap;
     }
     .live-dot {
       width: 6px; height: 6px; border-radius: 50%;
@@ -220,7 +220,7 @@
     }
     h1 {
       font-family: 'Playfair Display', serif;
-      font-size: clamp(34px, 4.2vw, 54px);
+      font-size: clamp(40px, 5vw, 62px);
       font-weight: 800; line-height: 1.06; letter-spacing: -.8px; margin-bottom: 22px;
     }
     h1 .gold-word {
@@ -228,7 +228,7 @@
       -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
     }
     .sub {
-      font-size: 16px; line-height: 1.72; color: var(--text2);
+      font-size: 17px; line-height: 1.75; color: var(--text2);
       max-width: 55ch; margin-bottom: 34px; font-weight: 300;
     }
     .sub strong { color: var(--text); font-weight: 600; }
@@ -244,7 +244,7 @@
     .btn {
       display: inline-flex; align-items: center; justify-content: center; gap: 9px;
       padding: 14px 24px; border-radius: 13px;
-      font-family: 'Outfit', sans-serif; font-weight: 600; font-size: 15px;
+      font-family: 'Outfit', sans-serif; font-weight: 600; font-size: 16px;
       text-decoration: none; border: none; cursor: pointer;
       transition: all .2s ease; white-space: nowrap; letter-spacing: .1px;
     }
@@ -275,7 +275,7 @@
     }
     .kpi-item {
       display: flex; align-items: center; gap: 8px;
-      font-size: 13px; color: var(--muted);
+      font-size: 14px; color: var(--muted);
     }
     .kpi-dot {
       width: 5px; height: 5px; border-radius: 50%;
@@ -302,17 +302,17 @@
     }
     .feat-card:hover::before { opacity: 1; }
     .feat-icon-wrap {
-      width: 36px; height: 36px; border-radius: 10px;
+      width: 40px; height: 40px; border-radius: 10px;
       background: linear-gradient(135deg, rgba(201,168,76,.14), rgba(201,168,76,.06));
       border: 1px solid rgba(201,168,76,.18);
       display: flex; align-items: center; justify-content: center;
-      margin-bottom: 12px; font-size: 17px;
+      margin-bottom: 12px; font-size: 20px;
     }
     .feat-card h3 {
-      font-size: 14px; font-weight: 600; margin-bottom: 6px; color: var(--text);
+      font-size: 15px; font-weight: 600; margin-bottom: 6px; color: var(--text);
     }
     .feat-card p {
-      font-size: 13px; color: var(--muted); line-height: 1.6; font-weight: 300;
+      font-size: 13.5px; color: var(--muted); line-height: 1.6; font-weight: 300;
     }
 
     .divider {
@@ -335,7 +335,7 @@
       background: linear-gradient(90deg, transparent, rgba(201,168,76,.35), transparent);
     }
     .side-card h2 {
-      font-family: 'Playfair Display', serif; font-size: 16px; font-weight: 700;
+      font-family: 'Playfair Display', serif; font-size: 18px; font-weight: 700;
       margin-bottom: 18px; color: var(--text);
     }
     .benefit-list {
@@ -343,7 +343,7 @@
     }
     .benefit-list li {
       display: flex; align-items: flex-start; gap: 11px;
-      font-size: 14px; color: var(--text2); line-height: 1.5; font-weight: 300;
+      font-size: 15px; color: var(--text2); line-height: 1.5; font-weight: 300;
     }
     .check-wrap {
       width: 20px; height: 20px; border-radius: 6px;
@@ -395,22 +395,85 @@
     .side-panel { animation: fadeUp .65s .12s cubic-bezier(.16,1,.3,1) both; }
 
     /* RESPONSIVE */
+    @media (max-width: 1100px) {
+      .hero { grid-template-columns: 1.15fr .85fr; gap: 18px; }
+    }
     @media (max-width: 960px) {
       .hero { grid-template-columns: 1fr; }
       .side-panel { flex-direction: row; flex-wrap: wrap; }
-      .side-card  { flex: 1 1 280px; }
+      .side-card  { flex: 1 1 300px; }
+      h1 { font-size: clamp(38px, 6vw, 54px); }
     }
     @media (max-width: 640px) {
-      .wrap      { padding: 0 16px 60px; }
-      .main-card { padding: 28px 22px 24px; }
-      nav        { padding-top: 20px; }
-      .nav-pill  { display: none; }
-      .btn       { width: 100%; }
-      .actions   { flex-direction: column; }
-      .feat-grid { grid-template-columns: 1fr; }
-      .stats-grid{ grid-template-columns: 1fr; }
-      .side-panel{ flex-direction: column; }
+      /* Layout */
+      .wrap        { padding: 0 14px 50px; }
+      .hero        { margin-top: 20px; gap: 14px; }
+      nav          { padding-top: 16px; }
+      .nav-pill    { display: none; }
+      .side-panel  { flex-direction: column; gap: 12px; }
       .corner-mark { display: none; }
+
+      /* Main card */
+      .main-card   { padding: 24px 18px 22px; border-radius: 20px; }
+
+      /* Logo */
+      .logo-mark   { width: 38px; height: 38px; }
+      .logo-title  { font-size: 19px; }
+      .logo-sub    { font-size: 9px; }
+
+      /* Eyebrow badge */
+      .eyebrow     { font-size: 11px; padding: 5px 12px 5px 9px; margin-bottom: 16px; }
+
+      /* Headline */
+      h1           { font-size: clamp(28px, 8.5vw, 38px); margin-bottom: 16px; letter-spacing: -.5px; }
+
+      /* Video */
+      .video-wrap  { border-radius: 12px; margin-bottom: 20px; }
+
+      /* Descriptive text */
+      .sub         { font-size: 14px; line-height: 1.68; margin-bottom: 22px; }
+
+      /* Buttons — side by side on mobile */
+      .actions     { flex-direction: row; flex-wrap: wrap; gap: 10px; margin-bottom: 24px; }
+      .btn         { flex: 1 1 140px; font-size: 14px; padding: 13px 16px; }
+
+      /* KPI pills */
+      .kpi-row     { gap: 6px 14px; margin-bottom: 20px; }
+      .kpi-item    { font-size: 12px; }
+
+      /* Feature cards — 2 cols on mobile */
+      .feat-grid   { grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 24px; }
+      .feat-card   { padding: 15px 14px 13px; }
+      .feat-icon-wrap { width: 32px; height: 32px; font-size: 16px; margin-bottom: 8px; }
+      .feat-card h3 { font-size: 13px; }
+      .feat-card p  { font-size: 12px; }
+
+      /* Side cards */
+      .side-card   { padding: 22px 18px; border-radius: 18px; }
+      .side-card h2 { font-size: 16px; margin-bottom: 14px; }
+      .benefit-list li { font-size: 13.5px; }
+      .check-wrap  { width: 18px; height: 18px; }
+
+      /* Stats */
+      .stats-grid  { grid-template-columns: repeat(3, 1fr); gap: 8px; margin-top: 16px; }
+      .stat-num    { font-size: 20px; }
+      .stat-lbl    { font-size: 10px; }
+      .stat-box    { padding: 12px 6px; }
+
+      /* Social links */
+      .social-link  { padding: 11px 14px; }
+      .social-name  { font-size: 13px; }
+      .social-handle{ font-size: 11px; }
+      .social-icon  { width: 34px; height: 34px; }
+
+      /* Disclaimer */
+      .disclaimer   { font-size: 11px; }
+    }
+
+    /* Extra small phones */
+    @media (max-width: 380px) {
+      h1            { font-size: 26px; }
+      .feat-grid    { grid-template-columns: 1fr; }
     }
   </style>
 </head>
