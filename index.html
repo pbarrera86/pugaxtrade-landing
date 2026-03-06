@@ -60,32 +60,40 @@
       mask-image: radial-gradient(ellipse 90% 60% at 50% 20%, black 20%, transparent 100%);
     }
 
-    /* TICKER */
-    .ticker-bar {
-      position: relative; z-index: 2;
-      background: rgba(201,168,76,.07);
-      border-bottom: 1px solid var(--gold-border);
-      padding: 8px 0;
-      overflow: hidden;
-      display: flex;
-    }
-    .ticker-track {
-      display: flex; gap: 42px;
-      animation: ticker 30s linear infinite;
-      white-space: nowrap; padding: 0 24px;
-      flex-shrink: 0;
-    }
-    @keyframes ticker {
-      from { transform: translateX(0); }
-      to   { transform: translateX(-50%); }
-    }
-    .tick-item {
-      display: inline-flex; align-items: center; gap: 6px;
-      font-size: 11.5px; font-weight: 500; color: var(--muted); letter-spacing: .5px;
-    }
-    .tick-sep { color: var(--gold-border); opacity: .5; }
     .up   { color: #2ecc71; }
     .down { color: #e74c3c; }
+
+    /* SOCIAL CARD */
+    .social-links { display: flex; flex-direction: column; gap: 10px; margin-bottom: 4px; }
+    .social-link {
+      display: flex; align-items: center; gap: 13px;
+      padding: 13px 16px; border-radius: 13px;
+      border: 1px solid var(--border); background: var(--white3);
+      text-decoration: none; color: var(--text2); font-size: 14px; font-weight: 500;
+      transition: border-color .2s, background .2s, color .2s, transform .18s;
+    }
+    .social-link:hover { border-color: var(--gold-border); background: var(--gold-dim); color: var(--text); transform: translateY(-2px); }
+    .social-icon {
+      width: 38px; height: 38px; border-radius: 10px; flex-shrink: 0;
+      display: flex; align-items: center; justify-content: center;
+      background: linear-gradient(135deg, rgba(201,168,76,.15), rgba(201,168,76,.06));
+      border: 1px solid rgba(201,168,76,.18);
+    }
+    .social-icon svg { width: 18px; height: 18px; }
+    .social-meta { display: flex; flex-direction: column; gap: 2px; }
+    .social-name { font-size: 13px; font-weight: 600; color: var(--text); }
+    .social-handle { font-size: 11px; color: var(--muted); }
+
+    /* VIDEO CARD */
+    .video-wrap {
+      position: relative; width: 100%; padding-bottom: 56.25%;
+      height: 0; overflow: hidden; border-radius: 16px;
+      border: 1px solid var(--border);
+    }
+    .video-wrap iframe {
+      position: absolute; top: 0; left: 0;
+      width: 100%; height: 100%; border: 0; border-radius: 16px;
+    }
 
     /* WRAP */
     .wrap {
@@ -376,32 +384,7 @@
 
 <div class="bg-scene" aria-hidden="true"></div>
 
-<!-- TICKER -->
-<div class="ticker-bar" aria-label="Mercado en tiempo real">
-  <div class="ticker-track">
-    <span class="tick-item">NVDA <span class="up">▲ 2.34%</span></span><span class="tick-sep">·</span>
-    <span class="tick-item">AAPL <span class="up">▲ 0.87%</span></span><span class="tick-sep">·</span>
-    <span class="tick-item">MSFT <span class="up">▲ 1.12%</span></span><span class="tick-sep">·</span>
-    <span class="tick-item">TSLA <span class="down">▼ 1.45%</span></span><span class="tick-sep">·</span>
-    <span class="tick-item">META <span class="up">▲ 0.63%</span></span><span class="tick-sep">·</span>
-    <span class="tick-item">AMZN <span class="up">▲ 1.78%</span></span><span class="tick-sep">·</span>
-    <span class="tick-item">GOOGL <span class="down">▼ 0.22%</span></span><span class="tick-sep">·</span>
-    <span class="tick-item">JPM <span class="up">▲ 0.55%</span></span><span class="tick-sep">·</span>
-    <span class="tick-item">GS <span class="up">▲ 1.03%</span></span><span class="tick-sep">·</span>
-    <span class="tick-item">S&amp;P 500 <span class="up">▲ 0.61%</span></span><span class="tick-sep">·</span>
-    <span class="tick-item">NASDAQ <span class="up">▲ 0.94%</span></span><span class="tick-sep">·</span>
-    <span class="tick-item">DOW <span class="down">▼ 0.18%</span></span><span class="tick-sep">·</span>
-    <!-- duplicate for seamless loop -->
-    <span class="tick-item">NVDA <span class="up">▲ 2.34%</span></span><span class="tick-sep">·</span>
-    <span class="tick-item">AAPL <span class="up">▲ 0.87%</span></span><span class="tick-sep">·</span>
-    <span class="tick-item">MSFT <span class="up">▲ 1.12%</span></span><span class="tick-sep">·</span>
-    <span class="tick-item">TSLA <span class="down">▼ 1.45%</span></span><span class="tick-sep">·</span>
-    <span class="tick-item">META <span class="up">▲ 0.63%</span></span><span class="tick-sep">·</span>
-    <span class="tick-item">AMZN <span class="up">▲ 1.78%</span></span><span class="tick-sep">·</span>
-    <span class="tick-item">GOOGL <span class="down">▼ 0.22%</span></span><span class="tick-sep">·</span>
-    <span class="tick-item">JPM <span class="up">▲ 0.55%</span></span><span class="tick-sep">·</span>
-  </div>
-</div>
+
 
 <div class="wrap">
 
@@ -563,24 +546,45 @@
       </div>
 
       <div class="side-card">
-        <h2>Mercados hoy</h2>
-        <div class="market-widget">
-          <div class="market-row">
-            <span class="market-name">S&amp;P 500</span>
-            <span class="market-val up">▲ 0.61%</span>
-          </div>
-          <div class="market-row">
-            <span class="market-name">NASDAQ</span>
-            <span class="market-val up">▲ 0.94%</span>
-          </div>
-          <div class="market-row">
-            <span class="market-name">DOW JONES</span>
-            <span class="market-val down">▼ 0.18%</span>
-          </div>
-          <div class="market-row">
-            <span class="market-name">VIX (Volatilidad)</span>
-            <span class="market-val down">▼ 1.20%</span>
-          </div>
+        <h2>Síguenos</h2>
+        <div class="social-links">
+          <a class="social-link" href="https://www.youtube.com/@pugainversor" target="_blank" rel="noopener">
+            <span class="social-icon">
+              <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M22.54 6.42a2.78 2.78 0 0 0-1.95-1.96C18.88 4 12 4 12 4s-6.88 0-8.59.46A2.78 2.78 0 0 0 1.46 6.42 29 29 0 0 0 1 12a29 29 0 0 0 .46 5.58 2.78 2.78 0 0 0 1.95 1.96C5.12 20 12 20 12 20s6.88 0 8.59-.46a2.78 2.78 0 0 0 1.95-1.96A29 29 0 0 0 23 12a29 29 0 0 0-.46-5.58z" fill="#c9a84c" opacity=".9"/>
+                <polygon points="9.75,15.02 15.5,12 9.75,8.98 9.75,15.02" fill="#07080c"/>
+              </svg>
+            </span>
+            <span class="social-meta">
+              <span class="social-name">YouTube</span>
+              <span class="social-handle">@pugainversor</span>
+            </span>
+          </a>
+          <a class="social-link" href="https://www.linkedin.com/in/barrerapuga/" target="_blank" rel="noopener">
+            <span class="social-icon">
+              <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <rect x="2" y="2" width="20" height="20" rx="4" fill="#c9a84c" opacity=".9"/>
+                <path d="M7 10v7M7 7v.5" stroke="#07080c" stroke-width="2" stroke-linecap="round"/>
+                <path d="M11 17v-4a2 2 0 0 1 4 0v4M11 10v7" stroke="#07080c" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </span>
+            <span class="social-meta">
+              <span class="social-name">LinkedIn</span>
+              <span class="social-handle">barrerapuga</span>
+            </span>
+          </a>
+        </div>
+      </div>
+
+      <div class="side-card">
+        <h2>Mira cómo funciona</h2>
+        <div class="video-wrap">
+          <iframe
+            src="https://www.youtube.com/embed/JQbw_SI5XCs"
+            title="PugaXTrade – Demo"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            allowfullscreen>
+          </iframe>
         </div>
       </div>
 
